@@ -1,0 +1,320 @@
+/*
+ * Макеты Figma: VjciJXYSUkOrJdIqHzbO8N, экраны 4:95, 7:3, 7:4.
+ * Основные цвета из макета:
+ * #00080E — фон; #001D30 — карточки и поля; #0D6EFD — кнопки и рамки.
+ * Дополнительно: #2B4D7D — навигация; белый текст, жёлтые экспортированные иконки.
+ * Карточки: рамка 1px, скругление 4px; каталог — две колонки.
+ * Hover добавлен для интерактивной вёрстки: более светлая поверхность,
+ * тёмно-синяя кнопка, подчёркивание ссылки раскрытия описания.
+ * Сайт-образец в исходниках не указан: его название и URL можно добавить
+ * сюда после уточнения; перечисленные значения взяты непосредственно из Figma.
+ */
+
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/InterVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --background: #00080e;
+  --surface: #001d30;
+  --primary: #0d6efd;
+  --navigation: #2b4d7d;
+  --text: #ffffff;
+  --hover-surface: #07304b;
+  --hover-primary: #0b5ed7;
+  --focus: #ffcf00;
+  --radius: 4px;
+  --nav-height: 64px;
+}
+
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  background: var(--background);
+  color: var(--text);
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea { font: inherit; color: inherit; }
+button, summary { cursor: pointer; }
+img { display: block; max-width: 100%; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+.app {
+  width: 100%;
+  max-width: 390px;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 844px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: var(--background);
+}
+.page-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--navigation) var(--background);
+}
+.page-title { font-size: 23px; font-weight: 700; line-height: 28px; }
+.icon { width: 18px; height: 18px; flex: 0 0 auto; object-fit: contain; }
+
+.tab-bar {
+  flex: 0 0 auto;
+  min-height: var(--nav-height);
+  height: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  background: var(--navigation);
+  z-index: 2;
+}
+.tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  line-height: 12px;
+}
+.tab--active { font-weight: 700; }
+.tab--active::before {
+  content: "";
+  position: absolute;
+  height: 3px;
+  top: 0;
+  left: 22px;
+  right: 22px;
+  background: var(--primary);
+}
+.tab:focus-visible { outline-offset: -4px; }
+.button {
+  min-height: 38px;
+  padding: 0 12px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--primary);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+/* Лента. :target переключает демонстрационные карточки без JavaScript. */
+.feed { flex: 1; min-height: 0; position: relative; overflow: hidden; }
+.feed-card { display: none; position: relative; height: 100%; overflow-y: auto; }
+.feed-card--first, .feed-card:target { display: block; }
+.feed:has(.feed-card:target) .feed-card--first:not(:target) { display: none; }
+.feed-media { width: 100%; height: 100%; display: block; object-fit: cover; }
+.feed-shade {
+  position: absolute;
+  inset: 29.5% 0 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgb(0 0 0 / 72%));
+}
+.feed-overlay {
+  position: absolute;
+  bottom: 24px;
+  left: 18px;
+  right: 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 130px;
+  align-items: end;
+  gap: 8px;
+}
+.feed-description { min-width: 0; padding-bottom: 2px; }
+.feed-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.star-avatar {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  border: 2px solid #e2edff;
+  background: var(--surface);
+}
+.feed-description h1 {
+  min-width: 0;
+  margin-bottom: 0;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 34px;
+  overflow-wrap: anywhere;
+}
+.feed-description p, .description-more summary {
+  font-size: 13px;
+  line-height: 1.35;
+}
+.description-more summary { list-style: none; width: fit-content; margin-top: 4px; font-weight: 700; text-shadow: 0 1px 3px #000; }
+.description-more summary::-webkit-details-marker { display: none; }
+.description-more .when-open, .description-more[open] .when-closed { display: none; }
+.description-more[open] .when-open { display: inline; }
+.description-more[open] p { margin-top: 0; }
+.description-more[open] { position: relative; padding-bottom: 22px; }
+.description-more[open] summary { position: absolute; bottom: 0; left: 0; margin-top: 0; }
+.feed-facts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: right;
+}
+.feed-facts > p { max-width: 112px; }
+.feed-facts strong { font-weight: 700; text-shadow: 0 1px 3px #000; }
+.likes { display: inline-flex; align-items: center; gap: 3px; font-size: 10px; line-height: 12px; }
+.likes .icon { width: 14px; height: 14px; }
+.likes--feed { gap: 4px; font-size: 13px; line-height: 16px; }
+.likes--feed .icon { width: 20px; height: 20px; }
+.next-button .icon { width: 17px; height: 17px; }
+
+/* Черновик. Нативные поля работают без скриптов и ничего не сохраняют. */
+.draft { padding: 18px 16px 14px; }
+.draft-fields { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+.uploads { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.upload {
+  position: relative;
+  min-width: 0;
+  height: 142px;
+  overflow: hidden;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--surface);
+  cursor: pointer;
+}
+.upload-preview { display: block; width: 100%; height: 95px; object-fit: cover; }
+.upload-caption { height: 45px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 11px; }
+.upload-input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 1; }
+.upload:focus-within { outline: 2px solid var(--focus); outline-offset: 3px; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field > label { font-size: 11px; line-height: 14px; }
+.control {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  padding: 0 11px;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-size: 14px;
+  line-height: 17px;
+}
+textarea.control {
+  min-height: 136px;
+  height: 136px;
+  padding-top: 16px;
+  padding-bottom: 10px;
+  resize: none;
+  overflow-y: auto;
+}
+.draft, .draft textarea.control { scrollbar-width: none; }
+.draft::-webkit-scrollbar, .draft textarea.control::-webkit-scrollbar { display: none; }
+.date-control { position: relative; min-width: 0; }
+.date-control input { padding-right: 38px; }
+.calendar-icon { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); pointer-events: none; }
+input[type="date"] { min-height: 0; appearance: none; }
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 26px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+input[type="date"]::-webkit-date-and-time-value { text-align: left; }
+input[type="number"] { appearance: textfield; }
+input[type="number"]::-webkit-inner-spin-button { appearance: none; }
+
+/* Плитка. Высота карточки и отступы соответствуют фрейму 390 × 844. */
+.catalog { padding: 18px 14px 12px; }
+.filter { display: flex; align-items: flex-start; gap: 8px; margin: 12px 0; }
+.filter-date {
+  height: 42px;
+  flex: 1;
+  padding: 5px 11px;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.filter-date label { display: block; font-size: 10px; line-height: 12px; }
+.filter-date input {
+  display: block;
+  width: 100%;
+  height: 17px;
+  margin: 0;
+  padding-left: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border: 0;
+  background: transparent;
+  font-size: 13px;
+  line-height: 16px;
+}
+.filter-date:focus-within { outline: 2px solid var(--focus); outline-offset: 2px; }
+.filter-date input:focus-visible { outline: 0; }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 10px; }
+.star-card {
+  min-width: 0;
+  min-height: 188px;
+  overflow: hidden;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.star-image { width: 100%; height: 103px; object-fit: cover; }
+.star-info { display: flex; flex-direction: column; gap: 5px; padding: 7px; }
+.star-heading { display: flex; align-items: center; justify-content: space-between; gap: 3px; }
+.star-heading h2 { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 500; line-height: 16px; }
+.star-heading .likes { flex: 0 0 auto; }
+.star-info > p { font-size: 10px; line-height: 12px; }
+
+@media (hover: hover) {
+  .button:hover { background: var(--hover-primary); border-color: var(--hover-primary); }
+  .tab:hover { background: rgb(255 255 255 / 7%); }
+  .star-card:hover, .upload:hover { background: var(--hover-surface); }
+  .description-more summary:hover { text-decoration: underline; }
+}
+@media (max-width: 359px) {
+  .feed-overlay { left: 14px; right: 14px; grid-template-columns: minmax(0, 1fr) 118px; gap: 6px; }
+  .feed-description h1 { font-size: 24px; line-height: 29px; }
+  .next-button { padding-inline: 8px; gap: 4px; font-size: 12px; }
+  .star-info { padding-inline: 6px; }
+  .star-info > p { overflow-wrap: anywhere; }
+}
+@media (max-height: 560px) {
+  .feed-overlay { bottom: 14px; }
+  .feed-description h1 { font-size: 22px; line-height: 27px; }
+  .feed-description p, .description-more summary { font-size: 11px; }
+  .feed-facts { gap: 8px; }
+}

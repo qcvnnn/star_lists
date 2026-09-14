@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#00080e" />
+    <title>Все системы — Звёздные системы</title>
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <main class="page-content catalog" aria-labelledby="page-title">
+        <h1 class="page-title" id="page-title">Все системы</h1>
+        <form class="filter" action="/catalog" method="get">
+          <div class="filter-date date-control">
+            <label for="filter-date">Дата получения</label>
+            <input id="filter-date" name="received_date" type="date" value="{{ received_date }}" />
+            <img
+              class="icon calendar-icon"
+              src="/static/images/calendar.svg"
+              alt=""
+              width="18"
+              height="18"
+            />
+          </div>
+          <button class="button" type="submit">Найти</button>
+        </form>
+        <div class="cards">
+            {% for star in stars %}
+            <a class="star-card" href="/feed?id={{ star.id }}" aria-label="Открыть звезду в ленте">
+              <img
+                src="{{star.image_url}}"
+                class="star-image"
+                alt="Изображение звезды"
+                width="176"
+                height="104"
+              />
+              <div class="star-info">
+                <div class="star-heading">
+                  <h2>{{star.title}}</h2>
+                  <span class="likes" aria-label="Количество лайков"
+                    ><img
+                      class="icon"
+                      src="/static/images/heart-small.svg"
+                      alt=""
+                      width="18"
+                      height="18"
+                    /><span>{{ star.likes_count }}</span></span
+                  >
+                </div>
+                <p>
+                  Дата получения: <time datetime="{{ star.date.isoformat() }}">{{ star.date.strftime("%d.%m.%Y") }}</time>
+                </p>
+                <p>
+                  Планет в зоне обитаемости:
+                  {{star.planets}}
+                </p>
+              </div>
+            </a>
+            {% endfor %}
+        </div>
+      </main>
+      <nav class="tab-bar" aria-label="Основная навигация">
+        <a class="tab" href="/feed"
+          ><img
+            class="icon"
+            src="/static/images/feed.svg"
+            alt=""
+            width="18"
+            height="18"
+          /><span>Лента</span></a
+        >
+        <a class="tab" href="/draft"
+          ><img
+            class="icon"
+            src="/static/images/add.svg"
+            alt=""
+            width="18"
+            height="18"
+          /><span>Добавление</span></a
+        >
+        <a class="tab tab--active" href="/catalog" aria-current="page"
+          ><img
+            class="icon"
+            src="/static/images/grid.svg"
+            alt=""
+            width="18"
+            height="18"
+          /><span>Плитка</span></a
+        >
+      </nav>
+    </div>
+  </body>
+</html>

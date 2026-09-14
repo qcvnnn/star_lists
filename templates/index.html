@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#00080e">
+  <title>Лента — Звёздные системы</title>
+  <link rel="stylesheet" href="/static/css/styles.css?v=star-avatar-2">
+</head>
+<body>
+  <div class="app app--feed">
+    <main class="feed" aria-label="Лента звёздных систем">
+      <article class="feed-card feed-card--first" id="star" aria-labelledby="star-title">
+        <video class="feed-media" autoplay muted loop playsinline preload="none" aria-label="Видео звезды" src="{{star.video_url}}"></video>
+        <div class="feed-shade" aria-hidden="true"></div>
+        <div class="feed-overlay">
+          <div class="feed-description">
+            <div class="feed-heading">
+              <img class="star-avatar" src="{{ star.image_url }}" alt="{{ star.title }}" width="36" height="36">
+              <h1 id="star-title">{{star.title}}</h1>
+            </div>
+            <p>{{ description_preview }}</p>
+            {% if description_rest %}
+            <details class="description-more">
+              <summary><span class="when-closed">Больше…</span><span class="when-open">Меньше</span></summary>
+              <p>{{ description_rest }}</p>
+            </details>
+            {% endif %}
+          </div>
+          <div class="feed-facts">
+            <p><strong>Дата получения:</strong> <time datetime="{{ star.date.isoformat() }}">{{ star.date.strftime("%d.%m.%Y") }}</time></p>
+            <p><strong>Планет в зоне обитаемости:</strong> <span>{{star.planets}}</span></p>
+            <span class="likes likes--feed" aria-label="Количество лайков"><img class="icon" src="/static/images/heart.svg" alt="" width="18" height="18"><span>{{ likes_count }}</span></span>
+            <a class="button next-button" href="/feed?id={{ star.id }}&amp;next=true">Следующий <img class="icon" src="/static/images/arrow-right.svg" alt="" width="18" height="18"></a>
+          </div>
+        </div>
+      </article>
+    </main>
+    <nav class="tab-bar" aria-label="Основная навигация">
+      <a class="tab tab--active" href="/feed" aria-current="page"><img class="icon" src="/static/images/feed.svg" alt="" width="18" height="18"><span>Лента</span></a>
+      <a class="tab" href="/draft"><img class="icon" src="/static/images/add.svg" alt="" width="18" height="18"><span>Добавление</span></a>
+      <a class="tab" href="/catalog"><img class="icon" src="/static/images/grid.svg" alt="" width="18" height="18"><span>Плитка</span></a>
+    </nav>
+  </div>
+</body>
+</html>
