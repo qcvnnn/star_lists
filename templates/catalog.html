@@ -27,7 +27,8 @@
         </form>
         <div class="cards">
             {% for star in stars %}
-            <a class="star-card" href="/feed?id={{ star.id }}" aria-label="Открыть звезду в ленте">
+            <article class="star-card">
+            <a class="star-card-link" href="/feed?id={{ star.id }}" aria-label="Открыть звезду в ленте">
               <img
                 src="{{star.image_url}}"
                 class="star-image"
@@ -49,14 +50,20 @@
                   >
                 </div>
                 <p>
-                  Дата получения: <time datetime="{{ star.date.isoformat() }}">{{ star.date.strftime("%d.%m.%Y") }}</time>
+                  Дата получения: {% if star.received_date %}<time datetime="{{ star.received_date.isoformat() }}">{{ star.received_date.strftime("%d.%m.%Y") }}</time>{% else %}—{% endif %}
                 </p>
                 <p>
                   Планет в зоне обитаемости:
-                  {{star.planets}}
+                  {{ star.habitable_planets if star.habitable_planets is not none else "—" }}
                 </p>
               </div>
             </a>
+            {% if star.creator_id == current_user_id %}
+            <form class="delete-form" method="post" action="/stars/{{ star.id }}/delete">
+              <button class="button delete-button" type="submit" aria-label="Удалить {{ star.title }}">Удалить</button>
+            </form>
+            {% endif %}
+            </article>
             {% endfor %}
         </div>
       </main>

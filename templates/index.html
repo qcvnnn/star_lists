@@ -11,12 +11,12 @@
   <div class="app app--feed">
     <main class="feed" aria-label="Лента звёздных систем">
       <article class="feed-card feed-card--first" id="star" aria-labelledby="star-title">
-        <video class="feed-media" autoplay muted loop playsinline preload="none" aria-label="Видео звезды" src="{{star.video_url}}"></video>
+        <video class="feed-media" autoplay muted loop playsinline preload="none" aria-label="Видео звезды" src="{{ media.video_url }}"></video>
         <div class="feed-shade" aria-hidden="true"></div>
         <div class="feed-overlay">
           <div class="feed-description">
             <div class="feed-heading">
-              <img class="star-avatar" src="{{ star.image_url }}" alt="{{ star.title }}" width="36" height="36">
+              <img class="star-avatar" src="{{ media.image_url }}" alt="{{ star.title }}" width="36" height="36">
               <h1 id="star-title">{{star.title}}</h1>
             </div>
             <p>{{ description_preview }}</p>
@@ -28,8 +28,8 @@
             {% endif %}
           </div>
           <div class="feed-facts">
-            <p><strong>Дата получения:</strong> <time datetime="{{ star.date.isoformat() }}">{{ star.date.strftime("%d.%m.%Y") }}</time></p>
-            <p><strong>Планет в зоне обитаемости:</strong> <span>{{star.planets}}</span></p>
+            <p><strong>Дата получения:</strong> {% if star.received_date %}<time datetime="{{ star.received_date.isoformat() }}">{{ star.received_date.strftime("%d.%m.%Y") }}</time>{% else %}—{% endif %}</p>
+            <p><strong>Планет в зоне обитаемости:</strong> <span>{{ star.habitable_planets if star.habitable_planets is not none else "—" }}</span></p>
             <span class="likes likes--feed" aria-label="Количество лайков"><img class="icon" src="/static/images/heart.svg" alt="" width="18" height="18"><span>{{ likes_count }}</span></span>
             <a class="button next-button" href="/feed?id={{ star.id }}&amp;next=true">Следующий <img class="icon" src="/static/images/arrow-right.svg" alt="" width="18" height="18"></a>
           </div>

@@ -11,39 +11,42 @@
   <div class="app">
     <main class="page-content draft" aria-labelledby="page-title">
       <h1 class="page-title" id="page-title">Черновик</h1>
-      <div class="draft-fields">
+      <form class="draft-fields" method="post" action="{{ '/stars/' ~ star.id ~ '/publish' if star else '/stars' }}">
         <div class="uploads">
           <label class="upload">
-            <input class="upload-input" type="file" name="image" accept="image/*" aria-label="Загрузить фото">
-            <img class="upload-preview" src="{{ star.image_url }}" alt="Изображение {{ star.title }}" width="173" height="96">
+            <input class="upload-input" type="file" accept="image/*" aria-label="Загрузить фото">
+            <img class="upload-preview" src="{{ media.image_url }}" alt="Изображение {{ star.title if star else '' }}" width="173" height="96">
             <span class="upload-caption"><img class="icon" src="/static/images/image.svg" alt="" width="18" height="18"><span>Загрузить фото</span></span>
           </label>
           <label class="upload">
-            <input class="upload-input" type="file" name="video" accept="video/*" aria-label="Загрузить видео">
-            <video class="upload-preview" src="{{ star.video_url }}" poster="{{ star.image_url }}" autoplay muted loop playsinline preload="metadata" aria-label="Превью видео {{ star.title }}" width="173" height="96"></video>
+            <input class="upload-input" type="file" accept="video/*" aria-label="Загрузить видео">
+            <video class="upload-preview" src="{{ media.video_url }}" poster="{{ media.image_url }}" autoplay muted loop playsinline preload="metadata" aria-label="Превью видео {{ star.title if star else '' }}" width="173" height="96"></video>
             <span class="upload-caption"><img class="icon" src="/static/images/video.svg" alt="" width="18" height="18"><span>Загрузить видео</span></span>
           </label>
         </div>
         <div class="field">
           <label for="star-name">Название звезды</label>
-          <input class="control" id="star-name" name="name" type="text" value="{{ star.title }}">
+          <input class="control" id="star-name" name="title" type="text" required maxlength="100" value="{{ star.title if star else '' }}">
         </div>
+        {% if star %}
         <div class="field">
           <label for="description">Текстовое описание</label>
-          <textarea class="control" id="description" name="description" rows="2">{{ star.description }}</textarea>
+          <textarea class="control" id="description" name="description" rows="2" required>{{ (star.description or '') if star else '' }}</textarea>
         </div>
         <div class="field">
           <label for="received-date">Дата получения</label>
           <div class="date-control">
-            <input class="control" id="received-date" name="received_date" type="date" value="{{ star.date.isoformat() }}">
+            <input class="control" id="received-date" name="received_date" type="date" required value="{{ star.received_date.isoformat() if star and star.received_date else '' }}">
             <img class="icon calendar-icon" src="/static/images/calendar.svg" alt="" width="18" height="18">
           </div>
         </div>
         <div class="field">
           <label for="planet-count">Количество планет в зоне обитаемости</label>
-          <input class="control" id="planet-count" name="habitable_planets" type="number" min="0" step="1" value="{{ star.planets }}">
+          <input class="control" id="planet-count" name="habitable_planets" type="number" required min="0" step="1" value="{{ star.habitable_planets if star and star.habitable_planets is not none else '' }}">
         </div>
-      </div>
+        {% endif %}
+        <button class="button" type="submit">{{ 'Опубликовать' if star else 'Далее' }}</button>
+      </form>
     </main>
     <nav class="tab-bar" aria-label="Основная навигация">
       <a class="tab" href="/feed"><img class="icon" src="/static/images/feed.svg" alt="" width="18" height="18"><span>Лента</span></a>

@@ -3,7 +3,7 @@ import uvicorn
 from api.handlers import router
 from fastapi.staticfiles import StaticFiles
 
-app = FastAPI(title="Hotel Catalog App")
+app = FastAPI(title="Star Systems")
 
 app.include_router(router)
 

@@ -318,3 +318,7 @@ input[type="number"]::-webkit-inner-spin-button { appearance: none; }
   .feed-description p, .description-more summary { font-size: 11px; }
   .feed-facts { gap: 8px; }
 }
+
+.star-card-link { display: block; }
+.delete-form { padding: 0 7px 7px; }
+.delete-button { width: 100%; min-height: 32px; font-size: 12px; }

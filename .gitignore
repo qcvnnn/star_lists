@@ -25,3 +25,7 @@ minio_data/
 
 # Node modules
 node_modules/
+
+.env
+*.dump
+.pytest_cache/
