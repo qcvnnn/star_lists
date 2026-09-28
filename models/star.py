@@ -27,7 +27,7 @@ class Star(Base):
     )
 
     id: Mapped[int] = mapped_column(
-        Integer, Identity(always=True), primary_key=True
+        Integer, Identity(always=False), primary_key=True
     )
     title: Mapped[str] = mapped_column(
         String(100), nullable=False
@@ -40,11 +40,13 @@ class Star(Base):
         nullable=False,
         server_default=text("'Черновик'"),
     )
-    image_url: Mapped[str | None] = mapped_column(
-        String(2048), nullable=True
+    image_url: Mapped[str] = mapped_column(
+        String(2048), nullable=False,
+        server_default="/static/media/default-star.jpg",
     )
-    video_url: Mapped[str | None] = mapped_column(
-        String(2048), nullable=True
+    video_url: Mapped[str] = mapped_column(
+        String(2048), nullable=False,
+        server_default="/static/media/default-star.mp4",
     )
     received_date: Mapped[date | None] = mapped_column(
         Date, nullable=True

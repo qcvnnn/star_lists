@@ -7,7 +7,7 @@ class Like(Base):
     __tablename__ = "likes"
 
     id: Mapped[int] = mapped_column(
-        Integer, Identity(always=True), primary_key=True
+        Integer, Identity(always=False), primary_key=True
     )
     user_id: Mapped[int] = mapped_column(
         ForeignKey("users.id", ondelete="RESTRICT", name="likes_user_fk"),

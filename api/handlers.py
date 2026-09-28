@@ -28,7 +28,7 @@ async def open_draft(request: Request, db: AsyncSession = Depends(get_db)):
     return templates.TemplateResponse(
         request=request,
         name="add.html",
-        context={"star": star, "media": await star_media(star)},
+        context={"star": star, "media": star_media(star)},
     )
 
 
@@ -103,7 +103,6 @@ async def publish_star(
 
 @router.post("/stars/{star_id}/delete")
 async def delete_star(star_id: int, db: AsyncSession = Depends(get_db)):
-    # Raw SQL, как в методичке: параметризованный UPDATE без ORM.
     result = await db.execute(
         text("UPDATE stars SET status = :deleted "
              "WHERE id = :id AND creator_id = :user_id AND status = :published"),
@@ -162,7 +161,7 @@ async def get_star_detail(
         name="index.html",
         context={
             "star": star,
-            "media": await star_media(star),
+            "media": star_media(star),
             "likes_count": likes_count,
             "description_preview": description_preview,
             "description_rest": description_rest,
@@ -195,14 +194,13 @@ async def get_catalog_star(
         query = query.where(Star.received_date == filter_date)
 
     stars = []
-    checked_media = {}
     for star, likes_count in await db.execute(query):
         stars.append({
             "id": star.id,
             "creator_id": star.creator_id,
             "title": star.title,
-            "image_url": await media_url(star.image_url, "image", checked_media),
-            "video_url": await media_url(star.video_url, "video", checked_media),
+            "image_url": media_url(star.image_url, "image"),
+            "video_url": media_url(star.video_url, "video"),
             "received_date": star.received_date,
             "habitable_planets": star.habitable_planets,
             "likes_count": likes_count,

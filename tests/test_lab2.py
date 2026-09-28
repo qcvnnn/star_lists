@@ -3,7 +3,6 @@ import asyncio
 import importlib.util
 from pathlib import Path
 from uuid import uuid4
-from unittest.mock import AsyncMock, patch
 
 import httpx
 from alembic.migration import MigrationContext
@@ -44,6 +43,22 @@ async def run_scenario():
                 with Operations.context(MigrationContext.configure(sync_connection)):
                     migration.upgrade()
             await connection.run_sync(migrate)
+            spec2 = importlib.util.spec_from_file_location("identity_update", Path(__file__).parents[1] / "alembic/versions/0002_identity_by_default.py")
+            identity_update = importlib.util.module_from_spec(spec2)
+            spec2.loader.exec_module(identity_update)
+            def migrate_identity(sync_connection):
+                with Operations.context(MigrationContext.configure(sync_connection)):
+                    identity_update.upgrade()
+            await connection.run_sync(migrate_identity)
+            spec3 = importlib.util.spec_from_file_location("required_media", Path(__file__).parents[1] / "alembic/versions/0003_required_media_urls.py")
+            required_media = importlib.util.module_from_spec(spec3)
+            spec3.loader.exec_module(required_media)
+            def migrate_media(sync_connection):
+                with Operations.context(MigrationContext.configure(sync_connection)):
+                    required_media.upgrade()
+            await connection.run_sync(migrate_media)
+
+
 
             async def override_db():
                 async with AsyncSession(bind=connection, expire_on_commit=False,
@@ -72,9 +87,13 @@ async def run_scenario():
                 async with AsyncSession(bind=connection, join_transaction_mode="create_savepoint") as session:
                     star = await session.scalar(select(Star))
                     star_id = star.id
+                    # Adminer includes the unchanged identity value in UPDATE.
+                    await session.execute(text("UPDATE stars SET id = :id WHERE id = :id"), {"id": star_id})
+                    await session.commit()
+                    await session.refresh(star)
                     assert star.status == "Черновик"
                     assert star.created_at and star.formed_at is None
-                    assert star.image_url is None and star.video_url is None
+                    assert star.image_url == DEFAULT_IMAGE and star.video_url == DEFAULT_VIDEO
                 assert (await client.get(f"/feed?id={star_id}")).status_code == 404
                 assert (await client.post("/stars", data={"title": "Duplicate"})).status_code == 303
                 async with AsyncSession(bind=connection, join_transaction_mode="create_savepoint") as session:
@@ -98,11 +117,11 @@ async def run_scenario():
                     star.video_url = "http://localhost:9000/media/missing-lab2.mp4"
                     await session.commit()
 
-                with patch("data.media.httpx.AsyncClient.head", new=AsyncMock(side_effect=httpx.ConnectError("offline"))):
-                    for url in [f"/feed?id={star_id}", "/catalog"]:
-                        r = await client.get(url)
-                        assert r.status_code == 200 and DEFAULT_IMAGE in r.text
-                    assert DEFAULT_VIDEO in (await client.get(f"/feed?id={star_id}")).text
+                for url in [f"/feed?id={star_id}", "/catalog"]:
+                    r = await client.get(url)
+                    assert r.status_code == 200
+                    assert "http://localhost:9000/media/missing-lab2.jpg" in r.text
+                assert "http://localhost:9000/media/missing-lab2.mp4" in (await client.get(f"/feed?id={star_id}")).text
                 r = await client.get("/catalog?received_date=2026-09-15")
                 assert 'value="2026-09-15"' in r.text and "Published star" in r.text
                 assert "<span>1</span>" in r.text

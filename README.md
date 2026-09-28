@@ -2,7 +2,7 @@
 
 Ветка: feature/database-integration.
 
-Лабораторная №2: подключение PostgreSQL, получение и фильтрация звёзд через ORM, создание черновиков, публикация и логическое удаление карточек. Лайки читаются из БД, отсутствующие медиа заменяются локальными файлами.
+Лабораторная №2: подключение PostgreSQL, получение и фильтрация звёзд через ORM, создание черновиков, публикация и логическое удаление карточек. Лайки читаются из БД, для пустых ссылок на медиа используются локальные файлы.
 
 FastAPI, Jinja2, PostgreSQL, SQLAlchemy AsyncSession, asyncpg, Alembic,
 Pydantic Settings. HTML и CSS без JavaScript.
@@ -35,7 +35,7 @@ Compose управляет существующими MinIO и Adminer; не с�
 - db/base.py, db/session.py — общая Base, async engine, сессии БД.
 - models/user.py, models/star.py, models/like.py — модели существующих таблиц.
 - api/handlers.py — шесть обработчиков.
-- data/media.py — асинхронная проверка URL и локальные файлы по умолчанию.
+- data/media.py — ссылки на медиа без проверки доступности и локальные файлы для пустых URL.
 - templates/ — три Jinja2-шаблона.
 - static/media/ — фото и видео по умолчанию.
 - alembic/versions/0001_initial_schema.py — начальная схема.

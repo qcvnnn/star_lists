@@ -7,7 +7,7 @@ class User(Base):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(
-        Integer, Identity(always=True), primary_key=True
+        Integer, Identity(always=False), primary_key=True
     )
     username: Mapped[str] = mapped_column(
         String(50), nullable=False
