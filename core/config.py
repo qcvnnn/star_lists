@@ -13,6 +13,12 @@ class Settings(BaseSettings):
     DB_NAME: str
     CURRENT_USER_ID: int = 1
 
+    MINIO_ENDPOINT: str
+    MINIO_ACCESS_KEY: str
+    MINIO_SECRET_KEY: str
+    MINIO_BUCKET: str = "media"
+    MINIO_PUBLIC_URL: str = "http://localhost:9000"
+
     model_config = SettingsConfigDict(env_file=ROOT_DIR / ".env", extra="ignore")
 
     @property

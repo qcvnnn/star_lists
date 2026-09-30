@@ -12,3 +12,7 @@ class User(Base):
     username: Mapped[str] = mapped_column(
         String(50), nullable=False
     )
+
+    password: Mapped[str] = mapped_column(
+        String(20), nullable=False
+    )
