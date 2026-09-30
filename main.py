@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 import uvicorn
-from api.handlers import router
+from api.star_list import router
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(title="Star Systems")

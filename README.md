@@ -9,7 +9,7 @@ FastAPI, Pydantic, SQLAlchemy AsyncSession, asyncpg, PostgreSQL, Alembic, MinIO 
 | Файл / каталог | Назначение |
 |---|---|
 | main.py | Приложение, подключение роутера и статики |
-| api/handlers.py | Все 10 HTTP-обработчиков, клиент MinIO и функция upload_file |
+| api/star_list.py | Все 10 HTTP-обработчиков, клиент MinIO и функция upload_file |
 | schemas/api.py | Pydantic-схемы запросов и ответов |
 | core/current_user.py | Фиксированный пользователь: общий словарь id=1 и get_current_user() |
 | core/config.py | Настройки из .env |
