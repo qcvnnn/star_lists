@@ -1,0 +1,10 @@
+import type { Star } from '../types'
+const media = import.meta.env.BASE_URL + 'media/'
+export const starsMock: Star[] = [
+ { id: 1, title: 'TRAPPIST-1', description: 'Система красного карлика в созвездии Водолея. Вокруг звезды обращаются семь каменистых планет. Три из них находятся в зоне обитаемости — области, где при подходящей атмосфере на поверхности может существовать жидкая вода. Это не означает, что на планетах обнаружена жизнь.', image_url: media + 'trappist-1.png', video_url: media + 'default-star.mp4', received_date: '2026-10-14', habitable_planets: 3, likes_count: 124 },
+ { id: 3, title: 'Kepler-186', description: 'Звёздная система в созвездии Лебедя. Планета Kepler-186 f близка по размеру к Земле и обращается в зоне обитаемости своей звезды.', image_url: media + 'kepler-186.png', video_url: media + 'default-star.mp4', received_date: '2026-10-14', habitable_planets: 1, likes_count: 87 },
+ { id: 7, title: 'Проксима Центавра', description: 'Ближайшая к Солнцу звезда. Проксима b получает от неё количество энергии, допускающее изучение планеты как кандидата на условия обитаемости.', image_url: media + 'proxima-centauri.png', video_url: null, received_date: '2026-10-15', habitable_planets: 1, likes_count: 63 },
+ { id: 11, title: 'TOI-700', description: 'Красный карлик с системой планет. Наблюдения помогают изучать небольшие планеты в зоне обитаемости.', image_url: media + 'toi-700.png', video_url: '', received_date: '2026-10-15', habitable_planets: 2, likes_count: 42 },
+ { id: 16, title: 'Gliese 667 C', description: 'Звезда в составе тройной системы. Здесь показана учебная карточка с незаполненными медиа: приложение подставляет локальные изображение и видео по умолчанию.', image_url: '', video_url: null, received_date: '2026-10-16', habitable_planets: null, likes_count: 18 },
+ { id: 20, title: 'Kepler-442', description: 'Система с планетой Kepler-442 b — объектом исследований потенциально обитаемых миров.', image_url: null, video_url: '', received_date: null, habitable_planets: 1, likes_count: 35 },
+]
