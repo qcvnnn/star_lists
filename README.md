@@ -1,10 +1,16 @@
-# Дополнительные задания РИП
+# Допзадание по индексам и Redis
 
-«Звёздные системы» — FastAPI, PostgreSQL, Redis и MinIO.
+В каталоге «Звёздных систем» больше 100 тысяч учебных карточек. Можно выбрать дату и листать результаты по 10 карточек. PostgreSQL использует индекс по дате, чтобы быстрее найти совпадения. В ленте Redis хранит порядок 100 случайных карточек для каждой сессии. После последней карточки сервер создаёт новую подборку.
 
-- **Индексы и пагинация.** Каталог принимает date через `received_date`, `page` и `limit`. Миграция добавляет частичный индекс по дате и ID. Redis хранит случайные подборки по 100 ID для ленты.
-- **Tauri и CLIP.** [Нативный клиент](native/README.md) получает карточки по IPv4 локальной сети и сравнивает изображение с английскими описаниями через Transformers.js.
+## Запуск
 
-Настройте локальный .env по .env.example, запустите PostgreSQL, Redis и MinIO, установите зависимости из requirements.txt и примените `python -m alembic upgrade head`. Для React-клиента запустите FastAPI на порту 8000.
+Скопируйте .env.example в .env и заполните настройки PostgreSQL, Redis и MinIO. Запустите эти сервисы. В корне проекта выполните:
 
-[React-клиент](frontend/README.md) · [Проверка индекса и Redis](EXTRA_DEMO.md) · [Диаграмма развёртывания](diagrams/stars-deployment.drawio)
+```powershell
+python -m pip install -r requirements.txt
+python -m alembic upgrade head
+python -m scripts.catalog_demo seed
+python -m uvicorn main:app --port 8000
+```
+
+В другом терминале перейдите в папку frontend, выполните npm ci и npm run dev. В каталоге выберите 14.01.2025 и перейдите на вторую страницу. Для сравнения запроса с индексом и без него выполните python -m scripts.catalog_demo benchmark из корня проекта.
