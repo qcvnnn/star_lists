@@ -2,7 +2,7 @@ import { AutoProcessor, AutoTokenizer, CLIPTextModelWithProjection, CLIPVisionMo
 
 const modelId = 'Xenova/clip-vit-base-patch32'
 export const threshold = 0.64
-export const topK = 3
+export const topK = 1
 let loading
 const textVectors = new Map()
 if (typeof window !== 'undefined') env.backends.onnx.wasm.numThreads = 1
