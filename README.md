@@ -7,4 +7,4 @@
 
 Настройте локальный .env по .env.example, запустите PostgreSQL, Redis и MinIO, установите зависимости из requirements.txt и примените `python -m alembic upgrade head`. Для React-клиента запустите FastAPI на порту 8000.
 
-[React-клиент](https://github.com/qcvnnn/star-lists-frontend/tree/feature/rip-extras) · [Проверка индекса и Redis](EXTRA_DEMO.md) · [Диаграмма развёртывания](diagrams/stars-deployment.drawio)
+[React-клиент](frontend/README.md) · [Проверка индекса и Redis](EXTRA_DEMO.md) · [Диаграмма развёртывания](diagrams/stars-deployment.drawio)
