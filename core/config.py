@@ -19,6 +19,10 @@ class Settings(BaseSettings):
     MINIO_BUCKET: str = "media"
     MINIO_PUBLIC_URL: str = "http://localhost:9000"
 
+    REDIS_URL: str = "redis://localhost:6379/0"
+    SESSION_TTL: int = 3600
+    SESSION_COOKIE_NAME: str = "session_id"
+
     model_config = SettingsConfigDict(env_file=ROOT_DIR / ".env", extra="ignore")
 
     @property

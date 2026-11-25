@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net">
+  <diagram name="Развёртывание — FastAPI" id="Развёртывание — FastAPI">
+    <mxGraphModel page="1" pageWidth="1320" pageHeight="1370" grid="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c1" value="Звёздные системы — диаграмма развёртывания" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=16;text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=22;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="35" y="20" width="1000" height="30" />
+        </mxCell>
+        <mxCell id="host" value="Ноутбук Windows · localhost / 127.0.0.1&#10;&#10;" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=16;shape=cube;size=12;fillColor=#ffffff;strokeColor=#283747;align=center;verticalAlign=top;spacingTop=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="80" width="1240" height="1230" />
+        </mxCell>
+        <mxCell id="browser" value="Браузер&#10;&#10;Просмотр HTML и медиа" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=16;rounded=0;fillColor=#ffffff;strokeColor=#283747;align=center;verticalAlign=top;spacingTop=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="90" y="165" width="320" height="110" />
+        </mxCell>
+        <mxCell id="postman" value="Postman&#10;&#10;Коллекция 10 HTTP-методов" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=16;rounded=0;fillColor=#ffffff;strokeColor=#283747;align=center;verticalAlign=top;spacingTop=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="820" y="165" width="350" height="110" />
+        </mxCell>
+        <mxCell id="preview" value="Предпросмотр фронта :8001&#10;&#10;Python / FastAPI / Jinja2&#10;front_preview.py — локально&#10;templates/ + static/" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=16;shape=cube;size=12;fillColor=#ffffff;strokeColor=#283747;align=center;verticalAlign=top;spacingTop=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="80" y="400" width="480" height="155" />
+        </mxCell>
+        <mxCell id="api" value="Веб-сервис FastAPI :8000&#10;&#10;Python / Uvicorn&#10;/api/star_list&#10;Два домена: звёзды и пользователи&#10;SQLAlchemy + asyncpg; MinIO SDK" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=16;shape=cube;size=12;fillColor=#ffffff;strokeColor=#283747;align=center;verticalAlign=top;spacingTop=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="720" y="400" width="470" height="180" />
+        </mxCell>
+        <mxCell id="docker" value="Docker Desktop&#10;&#10;" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=16;shape=cube;size=12;fillColor=#ffffff;strokeColor=#283747;align=center;verticalAlign=top;spacingTop=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="80" y="620" width="1120" height="590" />
+        </mxCell>
+        <mxCell id="pg" value="PostgreSQL&#10;&#10;Контейнер: postgres&#10;Хост :5455 → контейнер :5432&#10;БД stars_db&#10;users / stars / likes" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=16;rounded=0;fillColor=#ffffff;strokeColor=#283747;align=center;verticalAlign=top;spacingTop=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="125" y="940" width="410" height="205" />
+        </mxCell>
+        <mxCell id="minio" value="MinIO&#10;&#10;Контейнер: minio_storage&#10;API / файлы :9000&#10;Консоль :9001&#10;Бакет media" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=16;rounded=0;fillColor=#ffffff;strokeColor=#283747;align=center;verticalAlign=top;spacingTop=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="700" y="940" width="410" height="205" />
+        </mxCell>
+        <mxCell id="adminer" value="Adminer :8080&#10;&#10;stars_adminer&#10;Просмотр и изменение БД" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=16;rounded=0;fillColor=#ffffff;strokeColor=#283747;align=center;verticalAlign=top;spacingTop=18;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="125" y="680" width="300" height="115" />
+        </mxCell>
+        <mxCell id="bp" value="HTTP / HTML" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;strokeColor=#526175;fontSize=14;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=0.5;exitY=1.0;exitPerimeter=0;entryX=0.3541666666666667;entryY=0.0;entryPerimeter=0;" edge="1" parent="1" source="browser" target="preview">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pa" value="HTTP / JSON, multipart/form-data" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;strokeColor=#526175;fontSize=14;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=0.5;exitY=1.0;exitPerimeter=0;entryX=0.5851063829787234;entryY=0.0;entryPerimeter=0;" edge="1" parent="1" source="postman" target="api">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pd" value="SQLAlchemy / asyncpg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;strokeColor=#526175;fontSize=14;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=0.8333333333333334;exitY=1.0;exitPerimeter=0;entryX=0.8658536585365854;entryY=0.0;entryPerimeter=0;" edge="1" parent="1" source="preview" target="pg">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ap" value="SQL · localhost:5455" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;strokeColor=#526175;fontSize=14;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=0.1595744680851064;exitY=1.0;exitPerimeter=0;entryX=0.6219512195121951;entryY=0.0;entryPerimeter=0;" edge="1" parent="1" source="api" target="pg">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="795" y="780" />
+              <mxPoint x="590" y="780" />
+              <mxPoint x="590" y="910" />
+              <mxPoint x="380" y="910" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="am" value="Загрузка файлов · :9000" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;strokeColor=#526175;fontSize=14;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=0.6595744680851063;exitY=1.0;exitPerimeter=0;entryX=0.8048780487804879;entryY=0.0;entryPerimeter=0;" edge="1" parent="1" source="api" target="minio">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bm" value="Фото / видео по URL" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;strokeColor=#526175;fontSize=14;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=1.0;exitY=0.36363636363636365;exitPerimeter=0;entryX=0.3902439024390244;entryY=0.0;entryPerimeter=0;" edge="1" parent="1" source="browser" target="minio">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="615" y="205" />
+              <mxPoint x="615" y="875" />
+              <mxPoint x="860" y="875" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ag" value="postgres:5432" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;strokeColor=#526175;fontSize=14;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=0.35;exitY=1.0;exitPerimeter=0;entryX=0.25609756097560976;entryY=0.0;entryPerimeter=0;" edge="1" parent="1" source="adminer" target="pg">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c11" value="Основное API — :8000. Предпросмотр — отдельный локальный сервер; в API лабораторной не входит." style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=16;text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=15;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="85" y="1235" width="1100" height="30" />
+        </mxCell>
+        <mxCell id="c12" value="IP внешних устройств не задан. GitHub хранит код; публичное размещение фронта не настроено." style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=16;text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=15;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="85" y="1265" width="1100" height="30" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Развёртывание — Tauri и CLIP" id="deployment-tauri-clip">
+    <mxGraphModel page="1" pageWidth="1350" pageHeight="750" grid="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Звёздные системы · нативный клиент Tauri" style="whiteSpace=wrap;fontFamily=Arial;fontSize=15;rounded=1;strokeColor=none;fillColor=none;align=left;fontSize=24;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="30" width="1180" height="35" as="geometry" /></mxCell>
+        <mxCell id="guest" value="Компьютер гостя · Windows" style="whiteSpace=wrap;fontFamily=Arial;fontSize=15;rounded=1;fillColor=#eef6ff;strokeColor=#7599b7;verticalAlign=top;spacingTop=15;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="100" width="350" height="420" as="geometry" /></mxCell>
+        <mxCell id="server" value="Сервер · локальный IPv4 172.16.242.254" style="whiteSpace=wrap;fontFamily=Arial;fontSize=15;rounded=1;fillColor=#f1f8ef;strokeColor=#85ab7c;verticalAlign=top;spacingTop=15;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="695" y="100" width="460" height="420" as="geometry" /></mxCell>
+        <mxCell id="webview" value="WebView2&#10;React + Transformers.js / CLIP" style="whiteSpace=wrap;fontFamily=Arial;fontSize=15;rounded=1;fillColor=#ffffff;strokeColor=#7599b7;" vertex="1" parent="1"><mxGeometry x="70" y="160" width="285" height="75" as="geometry" /></mxCell>
+        <mxCell id="native" value="Процесс Tauri&#10;Rust HTTP-клиент" style="whiteSpace=wrap;fontFamily=Arial;fontSize=15;rounded=1;fillColor=#ffffff;strokeColor=#7599b7;" vertex="1" parent="1"><mxGeometry x="70" y="340" width="285" height="75" as="geometry" /></mxCell>
+        <mxCell id="api" value="FastAPI · TCP 8000&#10;GET /api/star_list/native/catalog" style="whiteSpace=wrap;fontFamily=Arial;fontSize=15;rounded=1;fillColor=#ffffff;strokeColor=#85ab7c;" vertex="1" parent="1"><mxGeometry x="735" y="337" width="365" height="82" as="geometry" /></mxCell>
+        <mxCell id="minio" value="MinIO · TCP 9000&#10;Изображения карточек" style="whiteSpace=wrap;fontFamily=Arial;fontSize=15;rounded=1;fillColor=#ffffff;strokeColor=#85ab7c;" vertex="1" parent="1"><mxGeometry x="740" y="160" width="175" height="76" as="geometry" /></mxCell>
+        <mxCell id="pg" value="PostgreSQL&#10;Карточки и clip_description" style="whiteSpace=wrap;fontFamily=Arial;fontSize=15;rounded=1;fillColor=#ffffff;strokeColor=#85ab7c;" vertex="1" parent="1"><mxGeometry x="930" y="170" width="175" height="94" as="geometry" /></mxCell>
+        <mxCell id="hf" value="Hugging Face · HTTPS&#10;Веса CLIP при первом поиске" style="whiteSpace=wrap;fontFamily=Arial;fontSize=15;rounded=1;fillColor=#fff8e8;strokeColor=#c19b53;" vertex="1" parent="1"><mxGeometry x="70" y="600" width="285" height="78" as="geometry" /></mxCell>
+        <mxCell id="ipc" value="IPC: load_catalog" style="edgeStyle=orthogonalEdgeStyle;rounded=1;endArrow=block;html=0;fontFamily=Arial;fontSize=13;" edge="1" source="webview" target="native" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="rest" value="HTTP по локальной сети · порт 8000" style="edgeStyle=orthogonalEdgeStyle;rounded=1;endArrow=block;html=0;fontFamily=Arial;fontSize=13;" edge="1" source="native" target="api" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="sql" value="SQL" style="edgeStyle=orthogonalEdgeStyle;rounded=1;endArrow=block;html=0;fontFamily=Arial;fontSize=13;" edge="1" source="api" target="pg" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="media" value="HTTP · изображения" style="edgeStyle=orthogonalEdgeStyle;rounded=1;endArrow=block;html=0;fontFamily=Arial;fontSize=13;" edge="1" source="webview" target="minio" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="model" value="HTTPS · модель" style="edgeStyle=orthogonalEdgeStyle;rounded=1;endArrow=block;html=0;fontFamily=Arial;fontSize=13;" edge="1" source="webview" target="hf" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

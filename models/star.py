@@ -21,6 +21,8 @@ from db.base import Base
 class Star(Base):
     __tablename__ = "stars"
     __table_args__ = (
+        Index("stars_catalog_received_date_idx", "received_date", "id",
+              postgresql_where=text("status = 'Опубликован'")),
         CheckConstraint("status IN ('Черновик', 'Опубликован', 'Удален')", name="stars_status_check"),
         Index("stars_one_draft_per_user", "creator_id", unique=True,
               postgresql_where=text("status = 'Черновик'")),
@@ -35,6 +37,7 @@ class Star(Base):
     description: Mapped[str | None] = mapped_column(
         Text, nullable=True
     )
+    clip_description: Mapped[str | None] = mapped_column(String(100))
     status: Mapped[str] = mapped_column(
         String(20),
         nullable=False,

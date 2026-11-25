@@ -1,0 +1,27 @@
+{
+  "productName": "Star Lists",
+  "version": "1.0.0",
+  "identifier": "ru.qcvnnn.star-lists",
+  "build": {
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Звёздные системы",
+        "width": 920,
+        "height": 700
+      }
+    ]
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "nsis"
+    ],
+    "icon": [
+      "icons/icon.ico"
+    ]
+  }
+}
